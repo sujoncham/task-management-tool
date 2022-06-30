@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
 
     const myNavbar = (<>
-        <li><Link to='/'>Submenu 1</Link></li>
-        <li><Link to='/'>Submenu 2</Link></li>
+        <li><Link to='/'>Completed Tasks</Link></li>
+        <li><Link to='/toDo'>ToDo</Link></li>
+        <li><Link to='/calendar'>Calendar</Link></li>
     </>);
 
     return (
