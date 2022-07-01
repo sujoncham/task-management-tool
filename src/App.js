@@ -1,5 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
 import Calendar from './components/Pages/Calendar';
 import CompletedTask from './components/Pages/CompletedTask';
@@ -18,6 +21,8 @@ function App() {
         <Route path='/calendar' element={<Calendar></Calendar>}></Route>
         <Route path='*' element={<Page404></Page404>}></Route>
       </Routes>
+      <Footer></Footer>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

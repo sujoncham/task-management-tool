@@ -12,7 +12,7 @@ const Calendar = () => {
   }
 
     return (
-       <div className='mt-20'>
+       <div className='mt-10 min-h-screen'>
         <h1 className='text-center font-bold text-3xl mb-10'>Select Your Date</h1>
             <div className='flex justify-center'>
                 <div className='grid grid-cols-1 shadow bg-slate-100'>

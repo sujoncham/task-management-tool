@@ -2,14 +2,13 @@
 const MyTask = ({edits, setEdits, refetch }) => {
     const {_id, title} = edits;
 
-
     const updateTask = (event) =>{
         event.preventDefault();
         const updateTitle = {
             title: event.target.title.value,
         };
 
-        fetch(`http://localhost:5000/task/${_id}`, {
+        fetch(`https://conservative-donair-22687.herokuapp.com/task/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
