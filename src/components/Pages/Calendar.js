@@ -12,12 +12,19 @@ const Calendar = () => {
   }
 
     return (
-        <DayPicker
-        mode="single"
-      selected={selected}
-      onSelect={setSelected}
-      footer={footer}
-         />
+       <div className='mt-20'>
+        <h1 className='text-center font-bold text-3xl mb-10'>Select Your Date</h1>
+            <div className='flex justify-center'>
+                <div className='grid grid-cols-1 shadow bg-slate-100'>
+                    <DayPicker
+                        mode="single"
+                        selected={selected}
+                        onSelect={setSelected}
+                        footer={footer}
+                    />
+                </div>
+            </div>
+       </div>
     );
 };
 

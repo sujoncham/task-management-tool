@@ -1,32 +1,45 @@
-import { FaPen } from "react-icons/fa";
-import { useQuery } from 'react-query';
+import { useState } from "react";
+import { FaPen } from 'react-icons/fa';
+import { useQuery } from "react-query";
+import MyTask from "./MyTask";
 
 const ToDo = () => {
-    
-    const {data:tasks, isLoading} = useQuery('tasks', ()=> fetch('http://localhost:5000/task').then(res=>res.json()));
+    const [edits, setEdits] = useState(null);
 
-    if(isLoading){
+    const { data:tasks, isLoading, refetch } = useQuery('available', () => fetch(`http://localhost:5000/task`)
+      .then((res) => res.json()))
+
+      if(isLoading){
         return <p>Looding......</p>;
     }
 
-    const editTask = () =>{
-        console.log('edit task')
+    const handleCompleted = (id) =>{
+        fetch(`http://localhost:5000/task/completed/${id}`, {
+            method: 'PUT',
+            headers:{
+                'content-type' : 'application/json',
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.success);
+            refetch();
+        })
     }
 
-
     return (
-        <div>
-            <h1>To Do App</h1>
+        <div className="mt-14">
+            <h1 className="text-center text-3xl font-bold">To-Do Task - {tasks.length}</h1>
             <div className="flex justify-center">
-                <div className="grid md:grid-cols-1 lg:grid-cols-1">
+                <div className="grid md:grid-cols-1 lg:grid-cols-1 shadow-3xl bg-base-200 rounded">
                     {
-                        tasks.map(task => <div className="flex justify-start items-center p-2" key={task._id}>
-                        <input type="checkBox" className="mx-3" /> {task.title} <span onClick={editTask} className="m-3 cursor-pointer"><FaPen /></span>
-                        <div className="divider"></div> 
+                        tasks?.map(task => <div className="flex justify-start items-center p-2" key={task._id} task={task}>
+                        <input onClick={() => handleCompleted(task._id)} type="checkBox" className="mx-3" /> {task.title} <label onClick={()=>setEdits(task)} htmlFor="my-task" className="btn btn-link"><FaPen /></label>
                             </div>)
                     }
                 </div>
             </div>
+            { edits && <MyTask setEdits={setEdits} edits={edits} refetch={refetch}></MyTask> }
         </div>
     );
 };

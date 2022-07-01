@@ -3,8 +3,8 @@ const Navbar = () => {
 
     const myNavbar = (<>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/conpletedTask'>Completed Tasks</Link></li>
         <li><Link to='/toDo'>ToDo</Link></li>
+        <li><Link to='/conpletedTask'>Completed Tasks</Link></li>
         <li><Link to='/calendar'>Calendar</Link></li>
     </>);
 
