@@ -21,12 +21,14 @@ const InputForm = () => {
         });
     }
     return (
-        <div className="mt-10 min-h-screen">
-            <h1 className="text-3xl font-bold mb-10">Add Task</h1>
-            <form onSubmit={handleFormSubmit}>
-            <input type="text" name="task" placeholder="Type here" className="input input-bordered w-full max-w-xs" autoComplete="off" />
-            {/* <button type="submit" className="btn btn-btn">submit</button> */}
-            </form>
+        <div className="mt-10 min-h-screen flex justify-center mb-5">
+            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 p-2">
+                <h1 className="text-3xl font-bold mb-10">Add Task</h1>
+                <form onSubmit={handleFormSubmit}>
+                <input type="text" name="task" placeholder="Type here" className="input input-bordered w-full max-w-xs" autoComplete="off" />
+                {/* <button type="submit" className="btn btn-btn">submit</button> */}
+                </form>
+            </div>
         </div>
     );
 };
