@@ -7,7 +7,7 @@ const InputForm = () => {
         const taskSend = {
             title,
         };
-        fetch('https://conservative-donair-22687.herokuapp.com/task', {
+        fetch('http://localhost:5000/task', {
             method: 'POST',
             headers:{
                 'content-type' : 'application/json',

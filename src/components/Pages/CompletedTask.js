@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 
 const CompletedTask = () => {
-    const {data:tasks, isLoading} = useQuery('completed', () => fetch('https://conservative-donair-22687.herokuapp.com/task/completed').then(res => res.json()));
+    const {data:tasks, isLoading} = useQuery('completed', () => fetch('http://localhost:5000/task/completed').then(res => res.json()));
 
     if(isLoading){
         return <p>Looding......</p>;

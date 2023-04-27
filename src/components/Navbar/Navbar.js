@@ -42,9 +42,9 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
             { user ? 
-            <button onClick={logout} class="btn btn-primary">Logout</button>
+            <button onClick={logout} className="btn btn-primary">Logout</button>
             :
-             <button onClick={handleLoginForm} class="btn btn-primary">Login</button>
+             <button onClick={handleLoginForm} className="btn btn-primary btn-sm">Login</button>
              }
             </div>
         </div>

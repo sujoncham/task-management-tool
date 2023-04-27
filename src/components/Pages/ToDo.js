@@ -7,7 +7,7 @@ import MyTask from "./MyTask";
 const ToDo = () => {
     const [edits, setEdits] = useState(null);
 
-    const { data:tasks, isLoading, refetch } = useQuery('task', () => fetch(`https://conservative-donair-22687.herokuapp.com/task`)
+    const { data:tasks, isLoading, refetch } = useQuery('task', () => fetch(`http://localhost:5000/task`)
       .then((res) => res.json()))
 
       if(isLoading){
@@ -15,7 +15,7 @@ const ToDo = () => {
     }
 
     const handleCompleted = (id) =>{
-        fetch(`https://conservative-donair-22687.herokuapp.com/task/completed/${id}`, {
+        fetch(`http://localhost:5000/task/completed/${id}`, {
             method: 'PUT',
             headers:{
                 'content-type' : 'application/json',
@@ -30,7 +30,7 @@ const ToDo = () => {
     const deleteTask = (id) =>{
         const confirmDelete = window.confirm('Are you sure to delete completed task!!!');
         if(confirmDelete){
-            fetch(`https://conservative-donair-22687.herokuapp.com/task/${id}`, {
+            fetch(`http://localhost:5000/task/${id}`, {
             method: 'DELETE',
             headers:{
                 'content-type' : 'application/json',
@@ -48,7 +48,7 @@ const ToDo = () => {
 
     return (
         <div className="mt-5">
-            <h1 className="text-center text-3xl font-bold mb-5">To-Do Task - {tasks.length}</h1>
+            <h1 className="text-center text-3xl font-bold mb-5">To-Do Task - {tasks?.length}</h1>
             <div className="flex justify-center">
                 <div className="w-96 shadow-3xl bg-base-200 rounded p-3 mb-5">
                     {
