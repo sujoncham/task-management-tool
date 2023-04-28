@@ -47,24 +47,25 @@ const ToDo = () => {
     }
 
     return (
-        <div className="mt-5">
+        <div className="container mx-auto px-10 mt-5">
             <h1 className="text-center text-3xl font-bold mb-5">To-Do Task - {tasks?.length}</h1>
-            <div className="flex justify-center">
-                <div className="w-96 shadow-3xl bg-base-200 rounded p-3 mb-5">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5 p-3 mb-5">
                     {
-                        tasks?.map(task => <div className="flex justify-between items-center p-2" key={task._id} task={task}>
-                            <div>
-                            <input onClick={() => handleCompleted(task._id)} disabled={task.role === 'completed'} type="checkbox" className="mx-3" /> 
-                            <span className={`${task.role === 'completed' ? 'line-through': ''}`} >{task.title}</span> 
+                        tasks?.map(task => <div className="flex justify-between items-center shadow-3xl bg-base-200 py-4 rounded-md" key={task._id} task={task}>
+                            <div className="flex gap-2">
+                            <input onClick={() => handleCompleted(task._id)} disabled={task.role === 'completed'} type="checkbox" className="mx-2" /> 
+                            <span className="flex flex-col">
+                                <span className={`${task.role === 'completed' ? 'line-through': ''}`} >{task.title}</span> 
+                                <span className={`text-[10px] ${task.role === 'completed' ? 'line-through': ''}`} >{task.startDate || ""}</span> 
+                            </span>
                             </div>
-                            <div>
-                                <label onClick={()=>setEdits(task)} htmlFor="my-task" disabled={task.role === 'completed'} className="btn btn-sm"><FaPen /></label> 
-                                <label onClick={()=>deleteTask(task._id)} htmlFor="my-task" disabled={task.role !== 'completed'} className="btn btn-sm"><FaTrashAlt /></label>
+                            <div className="flex justify-start items-center gap-2">
+                                <label onClick={()=>setEdits(task)} htmlFor="my-task" disabled={task.role === 'completed'} className="cursor-pointer hover:text-purple-600 btn btn-sm"><FaPen size={10} /></label> 
+                                <label onClick={()=>deleteTask(task._id)} htmlFor="my-task" disabled={task.role !== 'completed'} className="cursor-pointer hover:text-purple-600 btn btn-sm"><FaTrashAlt size={10} /></label>
                             </div>
                         </div>)
                     }
                 </div>
-            </div>
             { edits && <MyTask setEdits={setEdits} edits={edits} refetch={refetch}></MyTask> }
         </div>
     );

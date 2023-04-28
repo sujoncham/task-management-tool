@@ -1,11 +1,12 @@
 const MyTask = ({ edits, setEdits, refetch }) => {
-  const { _id, title, date } = edits;
+  const { _id, title, date, startDate } = edits;
 
   const updateTask = (event) => {
     event.preventDefault();
     const updateTitle = {
       title: event.target.title.value,
       date : event.target.date.value,
+      startDate : event.target.startDate.value,
     };
 
     fetch(`http://localhost:5000/task/${_id}`, {
@@ -37,6 +38,12 @@ const MyTask = ({ edits, setEdits, refetch }) => {
     const newData = { date: newDate, ...rest };
     setEdits(newData);
   };
+  const handleStartDate = (event) => {
+    const { startDate, ...rest } = edits;
+    const newDate = event.target.value;
+    const newData = { startDate: newDate, ...rest };
+    setEdits(newData);
+  };
 
   return (
     <div>
@@ -49,19 +56,25 @@ const MyTask = ({ edits, setEdits, refetch }) => {
           >
             ✕
           </label>
-          <form onSubmit={updateTask}>
+          <form onSubmit={updateTask} className="flex flex-col mt-5">
             <input
               type="text"
               name="title"
               onChange={handleTitle}
               value={title || ""}
-              className="input input-bordered"
+              className="input input-bordered mb-5"
             />
+            <input type="date" name="startDate"
+             className="input input-bordered mb-5" 
+             onChange={handleStartDate}
+             value={startDate || ""}
+             />
             <input type="date" name="date"
              className="input input-bordered" 
              onChange={handleDate}
              value={date || ""}
              />
+            
             <div className="mt-10">
               <button type="submit" className="btn btn-sm">update</button>
             </div>
