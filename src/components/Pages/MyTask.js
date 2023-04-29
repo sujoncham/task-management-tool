@@ -1,10 +1,11 @@
 const MyTask = ({ edits, setEdits, refetch }) => {
-  const { _id, title, date, startDate } = edits;
+  const { _id, title, date, startDate, note } = edits;
 
   const updateTask = (event) => {
     event.preventDefault();
     const updateTitle = {
       title: event.target.title.value,
+      note: event.target.note.value,
       date : event.target.date.value,
       startDate : event.target.startDate.value,
     };
@@ -44,6 +45,12 @@ const MyTask = ({ edits, setEdits, refetch }) => {
     const newData = { startDate: newDate, ...rest };
     setEdits(newData);
   };
+  const handleNote = (event) => {
+    const { note, ...rest } = edits;
+    const newDate = event.target.value;
+    const newData = { note: newDate, ...rest };
+    setEdits(newData);
+  };
 
   return (
     <div>
@@ -64,16 +71,31 @@ const MyTask = ({ edits, setEdits, refetch }) => {
               value={title || ""}
               className="input input-bordered mb-5"
             />
-            <input type="date" name="startDate"
-             className="input input-bordered mb-5" 
+           <div className="flex justify-between items-center mb-5">
+           <div>
+            <label htmlFor="startdate">Starting Date</label>
+           <input type="date" name="startDate"
+             className="input input-bordered" 
              onChange={handleStartDate}
              value={startDate || ""}
              />
+           </div>
+             
+            <div>
+            <label htmlFor="date">End Date</label>
             <input type="date" name="date"
              className="input input-bordered" 
              onChange={handleDate}
              value={date || ""}
              />
+            </div>
+           </div>
+             
+             <textarea type="text" name="note" cols="30" rows="10"
+             className="border-2 border-purple-500" 
+             onChange={handleNote}
+             value={note || ""}
+             ></textarea>
             
             <div className="mt-10">
               <button type="submit" className="btn btn-sm">update</button>
