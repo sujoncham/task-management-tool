@@ -10,7 +10,7 @@ const MyTask = ({ edits, setEdits, refetch }) => {
       startDate : event.target.startDate.value,
     };
 
-    fetch(`http://localhost:5000/task/${_id}`, {
+    fetch(`https://todo-task-manager-oyes.onrender.com/task/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

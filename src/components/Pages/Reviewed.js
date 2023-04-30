@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 
 const Reviewed = () => {
-    const {data:reviews, isLoading} = useQuery('reviews', () => fetch('http://localhost:5000/task/reviewed').then(res => res.json()));
+    const {data:reviews, isLoading} = useQuery('reviews', () => fetch('https://todo-task-manager-oyes.onrender.com/task/reviewed').then(res => res.json()));
 
     if(isLoading){
         return <p>Looding......</p>;

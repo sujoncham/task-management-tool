@@ -7,7 +7,7 @@ import MyTask from "./MyTask";
 const ToDo = () => {
     const [edits, setEdits] = useState(null);
 
-    const { data:tasks, isLoading, refetch } = useQuery('task', () => fetch(`http://localhost:5000/task`)
+    const { data:tasks, isLoading, refetch } = useQuery('task', () => fetch(`https://todo-task-manager-oyes.onrender.com/task`)
       .then((res) => res.json()))
 
       if(isLoading){
@@ -15,7 +15,7 @@ const ToDo = () => {
     }
 
     const handleCompleted = (id) =>{
-        fetch(`http://localhost:5000/task/completed/${id}`, {
+        fetch(`https://todo-task-manager-oyes.onrender.com/task/completed/${id}`, {
             method: 'PUT',
             headers:{
                 'content-type' : 'application/json',
@@ -30,7 +30,7 @@ const ToDo = () => {
     const deleteTask = (id) =>{
         const confirmDelete = window.confirm('Are you sure to delete completed task!!!');
         if(confirmDelete){
-            fetch(`http://localhost:5000/task/${id}`, {
+            fetch(`https://todo-task-manager-oyes.onrender.com/task/${id}`, {
             method: 'DELETE',
             headers:{
                 'content-type' : 'application/json',

@@ -10,7 +10,7 @@ const InputForm = () => {
             title,
             startDate,
         };
-        fetch('http://localhost:5000/task', {
+        fetch('https://todo-task-manager-oyes.onrender.com/task', {
             method: 'POST',
             headers:{
                 'content-type' : 'application/json',

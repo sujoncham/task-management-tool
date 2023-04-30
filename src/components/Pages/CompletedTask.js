@@ -4,7 +4,7 @@ import ReviewModal from './ReviewModal';
 
 const CompletedTask = () => {
     const [review, setReview] = useState(null);
-    const {data:tasks, isLoading, refetch} = useQuery('completed', () => fetch('http://localhost:5000/task/completed')
+    const {data:tasks, isLoading, refetch} = useQuery('completed', () => fetch('https://todo-task-manager-oyes.onrender.com/task/completed')
     .then(res => res.json()));
 
     if(isLoading){
@@ -12,7 +12,7 @@ const CompletedTask = () => {
     }
 
     const handleReviwed =(id)=>{
-        fetch(`http://localhost:5000/task/reviewed/${id}`, {
+        fetch(`https://todo-task-manager-oyes.onrender.com/task/reviewed/${id}`, {
             method: 'PUT',
             headers:{
                 'content-type' : 'application/json',
@@ -35,7 +35,9 @@ const CompletedTask = () => {
                     <span>({index + 1})</span>. <span>{task.title}</span> 
                     </div>
                     <div>
-                    <label onClick={()=>setReview(task)} htmlFor="my-review" className="hover:text-purple-600 btn btn-sm text-[9px]">{task.status === 'rejected' ? 'reviewed': 'review'}</label>
+                    <label onClick={()=>setReview(task)} htmlFor="my-review" 
+                    className={(task.status === 'rejected' ? 'border-2 border-purple-400 rounded-lg p-1 text-[10px] bg-red-500': 'border-2 border-purple-400 rounded-lg p-1 text-[10px]')}
+                    >{task.status === 'rejected' ? 'reviewed': 'review'}</label>
                     <button onClick={() => handleReviwed(task._id)} 
                     className={(task.status === 'rejected' ? 'border-2 border-purple-400 rounded-lg p-1 text-[10px] bg-red-500': 'border-2 border-purple-400 rounded-lg p-1 text-[10px]')}
                     >{task.status === 'rejected' ? 'Rejected': 'Qc pending'}</button>
