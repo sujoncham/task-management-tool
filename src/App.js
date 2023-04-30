@@ -6,6 +6,7 @@ import Login from './components/AuthenticateLogin/Login';
 import Register from './components/AuthenticateLogin/Register';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
+import Blog from './components/Pages/Blog';
 import CompletedTask from './components/Pages/CompletedTask';
 import Home from './components/Pages/Home';
 import Page404 from './components/Pages/Page404';
@@ -21,6 +22,7 @@ function App() {
         <Route path='/conpletedTask' element={<CompletedTask></CompletedTask>}></Route>
         <Route path='/toDo' element={<ToDo></ToDo>}></Route>
         <Route path='/reviewed' element={<Reviewed />}></Route>
+        <Route path='/blog' element={<Blog />}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
         <Route path='*' element={<Page404></Page404>}></Route>
