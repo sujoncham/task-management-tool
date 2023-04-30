@@ -1,12 +1,14 @@
 import React from 'react';
 
 const ReviewModal = ({review, refetch, setReview}) => {
+  
   const handleRejected = (id) =>{
     fetch(`http://localhost:5000/task/completed/${id}`, {
         method: 'PUT',
         headers:{
             'content-type' : 'application/json',
         },
+        body:JSON.stringify({ status: 'rejected' })
     })
     .then(res => res.json())
     .then(data => {

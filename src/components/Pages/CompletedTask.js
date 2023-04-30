@@ -35,8 +35,10 @@ const CompletedTask = () => {
                     <span>({index + 1})</span>. <span>{task.title}</span> 
                     </div>
                     <div>
-                    <label onClick={()=>setReview(task)} htmlFor="my-review" className="hover:text-purple-600 btn btn-sm">{task.status === 'rejected' ? 'reviewed': 'review'}</label>
-                    <button onClick={() => handleReviwed(task._id)}  className='border-2 border-purple-400 rounded-lg p-1'>{task.status === 'rejected' ? 'Rejected': 'Qc pending'}</button>
+                    <label onClick={()=>setReview(task)} htmlFor="my-review" className="hover:text-purple-600 btn btn-sm text-[9px]">{task.status === 'rejected' ? 'reviewed': 'review'}</label>
+                    <button onClick={() => handleReviwed(task._id)} 
+                    className={(task.status === 'rejected' ? 'border-2 border-purple-400 rounded-lg p-1 text-[10px] bg-red-500': 'border-2 border-purple-400 rounded-lg p-1 text-[10px]')}
+                    >{task.status === 'rejected' ? 'Rejected': 'Qc pending'}</button>
                     </div>
                         </div>)
                 }
