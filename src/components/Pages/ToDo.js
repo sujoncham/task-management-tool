@@ -20,9 +20,11 @@ const ToDo = () => {
             headers:{
                 'content-type' : 'application/json',
             },
+            body:JSON.stringify({ status: 'completed' })
         })
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             refetch();
         })
     }
@@ -53,7 +55,7 @@ const ToDo = () => {
                     {
                         tasks?.map(task => <div className={`${task.status === 'completed' ? 'hidden': 'flex justify-between items-center shadow-3xl bg-base-200 py-4 rounded-md'}`} key={task._id} task={task}>
                             <div className={`${task.status === 'completed' ? 'hidden': 'flex justify-between items-center shadow-3xl bg-base-200 py-4 rounded-md'}`}>
-                            <input onClick={() => handleCompleted(task._id)} disabled={task.status === 'completed'} type="checkbox" className="mx-2 cursor-pointer" /> 
+                            <input onClick={() => handleCompleted(task._id)} type="checkbox" className="mx-2 cursor-pointer" /> 
                             <span className="flex flex-col">
                                 <span>{task.title}</span> 
                                 <span>{task.date || ""}</span> 

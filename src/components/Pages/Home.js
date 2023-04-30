@@ -2,8 +2,8 @@ import InputForm from "./InputForm";
 
 const Home = () => {
     return (
-        <div>
-            <InputForm></InputForm>
+        <div className="container mx-auto py-10">
+            <InputForm />
         </div>
     );
 };
