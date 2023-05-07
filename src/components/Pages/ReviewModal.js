@@ -3,7 +3,7 @@ import React from 'react';
 const ReviewModal = ({review, refetch, setReview}) => {
   
   const handleRejected = (id) =>{
-    fetch(`https://todo-task-manager-oyes.onrender.com/task/completed/${id}`, {
+    fetch(`http://localhost:5000/api/task/completed/${id}`, {
         method: 'PUT',
         headers:{
             'content-type' : 'application/json',

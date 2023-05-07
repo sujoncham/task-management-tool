@@ -5,7 +5,7 @@ const Blog = () => {
     console.log(blogs)
     useEffect(()=>{
         const getData = async()=>{
-           await fetch('https://todo-task-manager-oyes.onrender.com/')
+           await fetch('http://localhost:5000/')
         .then(res => res.json())
         .then(data => {
             console.log(data)

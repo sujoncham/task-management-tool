@@ -1,6 +1,9 @@
 const MyTask = ({ edits, setEdits, refetch }) => {
   const { _id, title, date, startDate, note } = edits;
 
+  const newdate = new Date(startDate);
+const formattedDate = newdate.toISOString().slice(0, 10); // "2023-05-07"
+
   const updateTask = (event) => {
     event.preventDefault();
     const updateTitle = {
@@ -10,7 +13,7 @@ const MyTask = ({ edits, setEdits, refetch }) => {
       startDate : event.target.startDate.value,
     };
 
-    fetch(`https://todo-task-manager-oyes.onrender.com/task/${_id}`, {
+    fetch(`http://localhost:5000/api/task/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -73,11 +76,11 @@ const MyTask = ({ edits, setEdits, refetch }) => {
             />
            <div className="flex justify-between items-center mb-5">
            <div>
-            <label htmlFor="startdate">Starting Date</label>
+            <label htmlFor="startdate">Starting Date : {formattedDate}</label>
            <input type="date" name="startDate"
              className="input input-bordered" 
              onChange={handleStartDate}
-             value={startDate || ""}
+             value={formattedDate || startDate || ""}
              />
            </div>
              

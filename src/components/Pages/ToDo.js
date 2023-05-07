@@ -7,15 +7,16 @@ import MyTask from "./MyTask";
 const ToDo = () => {
     const [edits, setEdits] = useState(null);
 
-    const { data:tasks, isLoading, refetch } = useQuery('task', () => fetch(`https://todo-task-manager-oyes.onrender.com/task`)
+    const { data:tasks, isLoading, refetch } = useQuery('task', () => fetch(`http://localhost:5000/api/task`)
       .then((res) => res.json()))
+      console.log(tasks)
 
       if(isLoading){
         return <p>Looding......</p>;
     }
 
     const handleCompleted = (id) =>{
-        fetch(`https://todo-task-manager-oyes.onrender.com/task/completed/${id}`, {
+        fetch(`http://localhost:5000/api/task/completed/${id}`, {
             method: 'PUT',
             headers:{
                 'content-type' : 'application/json',
@@ -25,6 +26,7 @@ const ToDo = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data)
+            toast('Completed task successfully');
             refetch();
         })
     }
@@ -32,7 +34,7 @@ const ToDo = () => {
     const deleteTask = (id) =>{
         const confirmDelete = window.confirm('Are you sure to delete completed task!!!');
         if(confirmDelete){
-            fetch(`https://todo-task-manager-oyes.onrender.com/task/${id}`, {
+            fetch(`http://localhost:5000/api/task/${id}`, {
             method: 'DELETE',
             headers:{
                 'content-type' : 'application/json',
@@ -40,10 +42,10 @@ const ToDo = () => {
             })
             .then(res => res.json())
             .then(data => {
-                if(data.deletedCount){
-                    toast('Completed task deleted');
-                    refetch();
-                }
+               
+                toast('Completed task deleted');
+                refetch();
+                
             })
         }
     }
@@ -53,12 +55,13 @@ const ToDo = () => {
             <h1 className="text-center text-3xl font-bold mb-5">To-Do Task - {tasks?.length}</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5 p-3 mb-5">
                     {
-                        tasks?.map(task => <div className={`${task.status === 'completed' ? 'hidden': 'flex justify-between items-center shadow-3xl bg-base-200 py-4 rounded-md'}`} key={task._id} task={task}>
+                        tasks?.data?.map(task => <div className={`${task.status === 'completed' ? 'hidden': 'flex justify-between items-center shadow-3xl bg-base-200 py-4 rounded-md'}`} key={task._id} task={task}>
                             <div className={`${task.status === 'completed' ? 'hidden': 'flex justify-between items-center shadow-3xl bg-base-200 py-4 rounded-md'}`}>
                             <input onClick={() => handleCompleted(task._id)} type="checkbox" className="mx-2 cursor-pointer" /> 
                             <span className="flex flex-col">
                                 <span>{task.title}</span> 
-                                <span>{task.date || ""}</span> 
+                                <span>{new Date(task.date).toISOString().slice(0, 10) || ""}</span> 
+                               
                             </span>
                             </div>
                             <div className={`${task.status === 'completed' ? 'hidden': 'flex justify-between items-center shadow-3xl bg-base-200 py-4 rounded-md'}`}>
