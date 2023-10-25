@@ -1,6 +1,11 @@
+import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import auth from "../Firebase/Firebase.init";
 
 const InputForm = () => {
+  const { user } = useAuthState(auth);
+  console.log(user);
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const title = event.target.task.value;
@@ -22,7 +27,7 @@ const InputForm = () => {
       });
   };
   return (
-    <div className="w-[600px] h-[500px] mx-auto border-2 border-purple-500 px-5 py-5 rounded-md">
+    <div className="border-2 border-purple-500 px-5 py-5 rounded-md">
       <h1 className="text-3xl font-bold mb-10">Add Task</h1>
       <form onSubmit={handleFormSubmit}>
         <input

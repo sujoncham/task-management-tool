@@ -1,4 +1,4 @@
-const MyTask = ({ edits, setEdits, refetch }) => {
+const MyTask = ({ edits, setEdits}) => {
   const { _id, title, date, startDate, note } = edits;
 
   const newdate = new Date(startDate);
@@ -25,7 +25,6 @@ const formattedDate = newdate.toISOString().slice(0, 10); // "2023-05-07"
         if (data.success) {
           console.log("data added successfully");
         }
-        refetch();
       });
     setEdits(null);
   };
