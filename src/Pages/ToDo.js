@@ -1,19 +1,33 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaPen, FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import MyTask from "./MyTask";
 
 const ToDo = () => {
-  const [edits, setEdits] = useState(null);
   const [tasks, setTasks] = useState([]);
-  console.log(tasks);
+
+  // const [users, setUsers] = useState([]);
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:5000/api/users");
+  //       setUsers(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching data: ", error);
+  //     }
+  //   };
+  //   getData();
+  // }, []);
+
+  // console.log(tasks);
   useEffect(() => {
     const getData = async () => {
       await axios
         .get("http://localhost:5000/api/task")
         .then((data) => {
-          console.log(data.data);
+          // console.log(data.data);
           setTasks(data.data);
         })
         .catch((err) => {
@@ -22,21 +36,6 @@ const ToDo = () => {
     };
     getData();
   }, []);
-
-  const handleCompleted = (id) => {
-    fetch(`http://localhost:5000/api/task/completed/${id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ status: "completed" }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        toast("Completed task successfully");
-      });
-  };
 
   const deleteTask = (id) => {
     const confirmDelete = window.confirm(
@@ -57,66 +56,50 @@ const ToDo = () => {
   };
 
   return (
-    <div className="mt-10 border-2 border-purple-400 rounded-lg p-3">
-      <h1 className="text-center text-3xl font-bold mt-5 mb-10">
-        To-Do Task - {tasks?.length}
-      </h1>
-      <div className="grid grid-cols-1 gap-1 mb-5 overflow-y-auto h-[500px]">
-        {tasks?.data?.map((task) => (
-          <div
-            className={`${
-              task.status === "completed"
-                ? "hidden"
-                : "flex justify-between items-center shadow-3xl bg-base-200 px-3 py-2 rounded-md"
-            }`}
-            key={task._id}
-            task={task}
-          >
-            <div
-              className={`${
-                task.status === "completed"
-                  ? "hidden"
-                  : "flex justify-between items-center shadow-3xl bg-base-200 py-1 rounded-md"
-              }`}
-            >
-              <input
-                onClick={() => handleCompleted(task._id)}
-                type="checkbox"
-                className="mx-2 cursor-pointer"
-              />
-              <span className="flex flex-col">
-                <span>{task.title}</span>
-                <span>
-                  {new Date(task.startDate).toISOString().slice(0, 10) || ""}
-                </span>
-              </span>
-            </div>
-            <div
-              className={`${
-                task.status === "completed"
-                  ? "hidden"
-                  : "flex justify-between items-center shadow-3xl bg-base-200 px-3 py-2 rounded-md"
-              }`}
-            >
-              <label
-                onClick={() => setEdits(task)}
-                htmlFor="my-task"
-                className="hover:text-purple-600 btn btn-sm"
-              >
-                <FaPen size={10} />
-              </label>
-              <label
-                onClick={() => deleteTask(task._id)}
-                htmlFor="my-task"
-                className="hover:text-purple-600 btn btn-sm"
-              >
-                <FaTrashAlt size={10} />
-              </label>
-            </div>
-          </div>
-        ))}
+    <div className="container mx-auto px-10 py-10">
+      <div className="mt-10 border-2 border-purple-400 rounded-lg p-3">
+        <h1 className="text-center text-3xl font-bold mt-5 mb-10">
+          To-Do Task - {tasks?.length}
+        </h1>
+        <div className="mb-5 overflow-y-auto min-h-[500px]">
+          <ol className="flex flex-col gap-1">
+            {tasks?.data?.map(
+              (task) =>
+                task.review === "" && (
+                  <li
+                    className={`${
+                      task.review === "assign"
+                        ? "hidden"
+                        : "flex justify-between items-center shadow-3xl bg-base-200 px-3 py-2 rounded-md"
+                    }`}
+                    key={task._id}
+                  >
+                    <div className="w-[60%]">
+                      <p>{task.title}</p>
+                    </div>
+                    <div className="w-[30%] flex items-center">
+                      <Link
+                        to={`/toDo/taskDetail/${task._id}`}
+                        className="hover:text-purple-600 btn btn-sm"
+                      >
+                        detail
+                      </Link>
+                    </div>
+                    <div className="w-[10%]">
+                      <label
+                        onClick={() => deleteTask(task._id)}
+                        htmlFor="my-task"
+                        className="hover:text-purple-600 btn btn-sm"
+                      >
+                        <FaTrashAlt size={10} />
+                      </label>
+                    </div>
+                  </li>
+                )
+            )}
+          </ol>
+        </div>
       </div>
-      {edits && <MyTask setEdits={setEdits} edits={edits}></MyTask>}
     </div>
   );
 };

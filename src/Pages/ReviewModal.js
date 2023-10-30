@@ -1,13 +1,13 @@
 import React from "react";
 
-const ReviewModal = ({ review, refetch, setReview }) => {
+const ReviewModal = ({ review, refetch, setReview, handleReviewed }) => {
   const handleRejected = (id) => {
     fetch(`http://localhost:5000/api/task/completed/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ status: "rejected" }),
+      body: JSON.stringify({ review: "Qc Done" }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -34,13 +34,19 @@ const ReviewModal = ({ review, refetch, setReview }) => {
           <div>
             <h1 className="mb-5 font-bold">{review.title}</h1>
             <p>{review.note}</p>
-            <div className="mt-10">
+            <div className="mt-10 flex justify-around items-center">
               <button
                 htmlFor="my-review"
                 onClick={() => handleRejected(review._id)}
                 className="border-2 border-purple-400 rounded-md p-1"
               >
                 rejected
+              </button>
+              <button
+                onClick={() => handleReviewed(review._id)}
+                className="border-2 border-purple-400 rounded-lg p-1 text-[10px]"
+              >
+                Qc Done
               </button>
             </div>
           </div>

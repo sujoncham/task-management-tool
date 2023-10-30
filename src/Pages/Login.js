@@ -3,7 +3,7 @@ import {
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import auth from "../../Firebase/Firebase.init";
+import auth from "../Firebase/Firebase.init";
 
 const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);

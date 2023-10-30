@@ -1,16 +1,16 @@
-const MyTask = ({ edits, setEdits}) => {
+const MyTask = ({ edits, setEdits, handleSubmitted }) => {
   const { _id, title, date, startDate, note } = edits;
 
   const newdate = new Date(startDate);
-const formattedDate = newdate.toISOString().slice(0, 10); // "2023-05-07"
+  const formattedDate = newdate.toISOString().slice(0, 10); // "2023-05-07"
 
   const updateTask = (event) => {
     event.preventDefault();
     const updateTitle = {
       title: event.target.title.value,
       note: event.target.note.value,
-      date : event.target.date.value,
-      startDate : event.target.startDate.value,
+      date: event.target.date.value,
+      startDate: event.target.startDate.value,
     };
 
     fetch(`http://localhost:5000/api/task/${_id}`, {
@@ -73,34 +73,46 @@ const formattedDate = newdate.toISOString().slice(0, 10); // "2023-05-07"
               value={title || ""}
               className="input input-bordered mb-5"
             />
-           <div className="flex justify-between items-center mb-5">
-           <div>
-            <label htmlFor="startdate">Starting Date : {formattedDate}</label>
-           <input type="date" name="startDate"
-             className="input input-bordered" 
-             onChange={handleStartDate}
-             value={formattedDate || startDate || ""}
-             />
-           </div>
-             
-            <div>
-            <label htmlFor="date">End Date</label>
-            <input type="date" name="date"
-             className="input input-bordered" 
-             onChange={handleDate}
-             value={date || ""}
-             />
+            <div className="flex justify-between items-center mb-5">
+              <div>
+                <label htmlFor="startdate">
+                  Starting Date : {formattedDate}
+                </label>
+                <input
+                  type="date"
+                  name="startDate"
+                  className="input input-bordered"
+                  onChange={handleStartDate}
+                  value={formattedDate || startDate || ""}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="date">End Date</label>
+                <input
+                  type="date"
+                  name="date"
+                  className="input input-bordered"
+                  onChange={handleDate}
+                  value={date || ""}
+                />
+              </div>
             </div>
-           </div>
-             
-             <textarea type="text" name="note" cols="30" rows="10"
-             className="border-2 border-purple-500" 
-             onChange={handleNote}
-             value={note || ""}
-             ></textarea>
-            
-            <div className="mt-10">
-              <button type="submit" className="btn btn-sm">update</button>
+
+            <textarea
+              type="text"
+              name="note"
+              cols="30"
+              rows="10"
+              className="border-2 border-purple-500"
+              onChange={handleNote}
+              value={note || ""}
+            ></textarea>
+
+            <div className="mt-10 flex justify-between items-center">
+              <button type="submit" className="btn btn-sm">
+                update
+              </button>
             </div>
           </form>
         </div>
